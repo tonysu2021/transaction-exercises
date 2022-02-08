@@ -1,0 +1,9 @@
+.settings/
+common-dto/.settings/
+common-dto/target/
+inventory-service/.settings/
+inventory-service/target/
+order-service/.settings/
+order-service/target/
+payment-service/.settings/
+payment-service/target/

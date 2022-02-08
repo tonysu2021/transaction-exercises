@@ -1,0 +1,25 @@
+server:
+  port: 8080
+spring.cloud.stream:
+  # 提供多種binder設定
+  binders:
+    defultRabbit:
+      type: rabbit
+      environment:
+        spring:
+          rabbitmq:
+            host: 172.20.111.184
+            port: 5672
+  # functionName對應服務的Bean
+  function:
+    definition: supplier;consumer
+  # bindingName的命名規則
+  # input :<functionName>-in-<index>
+  # output:<functionName>-out-<index>
+  bindings:
+    supplier-out-0:
+      binder: defultRabbit
+      destination: order-created
+    consumer-in-0:
+      binder: defultRabbit
+      destination: order-updated

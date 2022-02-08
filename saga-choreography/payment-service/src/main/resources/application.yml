@@ -1,0 +1,25 @@
+spring.cloud.stream:
+  # 提供多種binder設定
+  binders:
+    defultKafka:
+      type: kafka
+      environment:
+        spring.kafka:
+          bootstrap-servers: 172.20.101.27:9091
+          producer:
+            acks: 1
+          consumer:
+            auto-offset-reset: earliest
+            enable-auto-commit: true
+            auto-commit-interval: 100
+  # functionName對應服務的Bean 
+  function:
+    definition: paymentProcessor
+  # bindingName的命名規則
+  # input :<functionName>-in-<index>
+  # output:<functionName>-out-<index>
+  bindings:
+    paymentProcessor-in-0:
+      destination: order-event
+    paymentProcessor-out-0:
+      destination: payment-event

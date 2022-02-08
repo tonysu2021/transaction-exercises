@@ -1,0 +1,27 @@
+version: "3.7"
+services:
+  saga-rabbitmq: 
+    container_name: saga-rabbitmq
+    image: saga-rabbitmq:0.0.1
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      network: host
+    restart: always
+    volumes:
+      - ./conf/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf
+      - saga_rabbitmq_data:/var/lib/rabbitmq/
+      - saga_rabbitmq_logs:/var/log/rabbitmq/
+    ports:
+      - 5672:5672
+      - 15672:15672
+    networks:
+      - sagarabbitnet
+volumes:
+  saga_rabbitmq_data:
+  saga_rabbitmq_logs:
+
+networks:
+  sagarabbitnet:
+    name: sagarabbitnet
+    driver: bridge

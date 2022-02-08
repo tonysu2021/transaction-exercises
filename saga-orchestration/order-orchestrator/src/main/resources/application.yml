@@ -1,0 +1,27 @@
+server:
+  port: 8083
+spring.cloud.stream:
+  # 提供多種binder設定
+  binders:
+    defultRabbit:
+      type: rabbit
+      environment:
+        spring:
+          rabbitmq:
+            host: 172.20.111.184
+            port: 5672
+  # functionName對應服務的Bean
+  function:
+    definition: processor
+  # bindingName的命名規則
+  # input :<functionName>-in-<index>
+  # output:<functionName>-out-<index>
+  bindings:
+    processor-in-0:
+      destination: order-created
+    processor-out-0:
+      destination: order-updated
+service:
+  endpoints:
+    inventory: http://localhost:8081
+    payment: http://localhost:8082
